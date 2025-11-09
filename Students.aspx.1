@@ -1,0 +1,44 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Students.aspx.cs" Inherits="Escuela.Web.Students" %>
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>Estudiantes</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <h2>Estudiantes</h2>
+
+        <div>
+            <asp:TextBox ID="txtFiltro" runat="server" Width="260" Placeholder="Buscar por nombre o email..." />
+            <asp:Button ID="btnBuscar" runat="server" Text="Buscar" OnClick="btnBuscar_Click" />
+            <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" OnClick="btnLimpiar_Click" />
+              
+            <asp:HyperLink ID="lnkNuevo" runat="server" NavigateUrl="~/StudentForm.aspx">+ Nuevo Estudiante</asp:HyperLink>
+        </div>
+
+        <br />
+
+        <asp:GridView ID="gvEstudiantes" runat="server"
+            AutoGenerateColumns="False"
+            DataKeyNames="IdEstudiante"
+            AllowPaging="true" PageSize="10"
+            OnPageIndexChanging="gvEstudiantes_PageIndexChanging"
+            OnRowEditing="gvEstudiantes_RowEditing"
+            OnRowDeleting="gvEstudiantes_RowDeleting"
+            OnRowDataBound="gvEstudiantes_RowDataBound"
+            EmptyDataText="No se encontraron estudiantes.">
+            <Columns>
+                <asp:BoundField DataField="IdEstudiante" HeaderText="ID" ReadOnly="true" />
+                <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+                <asp:BoundField DataField="Email" HeaderText="Email" />
+                <asp:BoundField DataField="Edad" HeaderText="Edad" />
+                <asp:BoundField DataField="Creado" HeaderText="Creado" DataFormatString="{0:u}" ReadOnly="true" />
+                <asp:CommandField ShowEditButton="True" EditText="Editar" />
+                <asp:CommandField ShowDeleteButton="True" DeleteText="Eliminar" />
+            </Columns>
+        </asp:GridView>
+
+        <asp:Label ID="lblMsg" runat="server" ForeColor="Red" />
+    </form>
+</body>
+</html>

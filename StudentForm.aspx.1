@@ -1,0 +1,44 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="StudentForm.aspx.cs" Inherits="Escuela.Web.StudentForm" %>
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>Estudiante</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:HyperLink ID="lnkVolver" runat="server" NavigateUrl="~/Students.aspx">« Volver</asp:HyperLink>
+        <h2><asp:Literal ID="litTitulo" runat="server" /></h2>
+
+        <asp:ValidationSummary ID="valSummary" runat="server" />
+
+        <div>
+            <label>Nombre</label><br />
+            <asp:TextBox ID="txtNombre" runat="server" MaxLength="100" />
+            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtNombre"
+                ErrorMessage="El nombre es obligatorio" Display="Dynamic" />
+        </div>
+
+        <div style="margin-top:8px;">
+            <label>Email</label><br />
+            <asp:TextBox ID="txtEmail" runat="server" MaxLength="200" />
+            <asp:RegularExpressionValidator runat="server" ControlToValidate="txtEmail"
+                ValidationExpression="^[^@\s]+@[^@\s]+\.[^@\s]+$"
+                ErrorMessage="Email inválido" Display="Dynamic" />
+        </div>
+
+        <div style="margin-top:8px;">
+            <label>Edad</label><br />
+            <asp:TextBox ID="txtEdad" runat="server" MaxLength="2" />
+            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtEdad"
+                ErrorMessage="La edad es obligatoria" Display="Dynamic" />
+            <asp:RangeValidator runat="server" ControlToValidate="txtEdad"
+                Type="Integer" MinimumValue="18" MaximumValue="40"
+                ErrorMessage="La edad debe estar entre 18 y 40" Display="Dynamic" />
+        </div>
+
+        <br />
+        <asp:Button ID="btnGuardar" runat="server" Text="Guardar" OnClick="btnGuardar_Click" />
+        <asp:Label ID="lblMsg" runat="server" ForeColor="Red" />
+    </form>
+</body>
+</html>
