@@ -1,0 +1,454 @@
+<head></head><body><article class="text-token-text-primary w-full focus:outline-none [--shadow-height:45px] has-data-writing-block:pointer-events-none has-data-writing-block:-mt-(--shadow-height) has-data-writing-block:pt-(--shadow-height) [&amp;:has([data-writing-block])&gt;*]:pointer-events-auto [content-visibility:auto] supports-[content-visibility:auto]:[contain-intrinsic-size:auto_100lvh] scroll-mt-[calc(var(--header-height)+min(200px,max(70px,20svh)))]" tabindex="-1" dir="auto" data-turn-id="76f9fa1a-a9d1-4cdd-abaa-b6ab35013b53" data-testid="conversation-turn-62" data-scroll-anchor="false" data-turn="assistant"><div class="text-base my-auto mx-auto [--thread-content-margin:--spacing(4)] thread-sm:[--thread-content-margin:--spacing(6)] thread-lg:[--thread-content-margin:--spacing(16)] px-(--thread-content-margin)"><div class="[--thread-content-max-width:40rem] thread-lg:[--thread-content-max-width:48rem] mx-auto max-w-(--thread-content-max-width) flex-1 group/turn-messages focus-visible:outline-hidden relative flex w-full min-w-0 flex-col agent-turn" tabindex="-1"><div class="flex max-w-full flex-col grow"><div data-message-author-role="assistant" data-message-id="30fa3986-861b-4a67-8219-196f259172d4" dir="auto" class="min-h-8 text-message relative flex w-full flex-col items-end gap-2 text-start break-words whitespace-normal [.text-message+&amp;]:mt-1" data-message-model-slug="gpt-5-thinking"><div class="flex w-full flex-col gap-1 empty:hidden first:pt-[1px]"><div class="markdown prose dark:prose-invert w-full break-words light markdown-new-styling"><h1 data-start="600" data-end="632">1) Crear el proyecto Web Forms</h1>
+<ol data-start="633" data-end="875">
+<li data-start="633" data-end="731">
+<p data-start="636" data-end="731">Visual Studio 2022 → <strong data-start="657" data-end="681">Create a new project</strong> → <strong data-start="684" data-end="728">ASP.NET Web Application (.NET Framework)</strong>.</p>
+</li>
+<li data-start="732" data-end="794">
+<p data-start="735" data-end="794">Nombre: <code data-start="743" data-end="756">Escuela.Web</code>. Framework: <strong data-start="769" data-end="791">.NET Framework 4.8</strong>.</p>
+</li>
+<li data-start="795" data-end="875">
+<p data-start="798" data-end="875">Plantilla: <strong data-start="809" data-end="822">Web Forms</strong> (puedes desmarcar autenticación si no la necesitas).</p>
+</li>
+</ol>
+<hr data-start="877" data-end="880">
+<h1 data-start="882" data-end="920">2) Instalar EF6 (Entity Framework 6)</h1>
+<p data-start="921" data-end="1047">Menú <strong data-start="926" data-end="985">Tools → NuGet Package Manager → Package Manager Console</strong>.<br data-start="986" data-end="989">
+Asegúrate que <strong data-start="1003" data-end="1036">Default project = Escuela.Web</strong> y ejecuta:</p>
+<pre class="overflow-visible!" data-start="1049" data-end="1098"><div class="contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary"><div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-powershell"><span>Install-Package EntityFramework
+</span></code></div></div></pre>
+<p data-start="1100" data-end="1269">Verifica en <strong data-start="1112" data-end="1126">References</strong>: <code data-start="1128" data-end="1145">EntityFramework</code> y <code data-start="1148" data-end="1175">EntityFramework.SqlServer</code>.<br data-start="1176" data-end="1179">
+En <code data-start="1182" data-end="1194">Web.config</code> debe aparecer una sección <code data-start="1221" data-end="1240">&lt;entityFramework&gt;</code> (si no, la agregamos abajo).</p>
+<hr data-start="1271" data-end="1274">
+<h1 data-start="1276" data-end="1319">3) Estructura del proyecto (sin App_Code)</h1>
+<p data-start="1320" data-end="1347">Crea <strong data-start="1325" data-end="1346">carpetas normales</strong>:</p>
+<ul data-start="1348" data-end="1451">
+<li data-start="1348" data-end="1378">
+<p data-start="1350" data-end="1378"><strong data-start="1350" data-end="1360">Models</strong> → <code data-start="1363" data-end="1378">Estudiante.cs</code></p>
+</li>
+<li data-start="1379" data-end="1411">
+<p data-start="1381" data-end="1411"><strong data-start="1381" data-end="1389">Data</strong> → <code data-start="1392" data-end="1411">EscuelaContext.cs</code></p>
+</li>
+<li data-start="1412" data-end="1451">
+<p data-start="1414" data-end="1451"><strong data-start="1414" data-end="1426">Services</strong> → <code data-start="1429" data-end="1451">EstudianteService.cs</code></p>
+</li>
+</ul>
+<h2 data-start="1453" data-end="1482">3.1 <code data-start="1460" data-end="1482">Models/Estudiante.cs</code></h2>
+<pre class="overflow-visible!" data-start="1483" data-end="2076"><div class="contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary"><div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-csharp"><span><span><span class="hljs-keyword">using</span></span><span> System;
+</span><span><span class="hljs-keyword">using</span></span><span> System.ComponentModel.DataAnnotations;
+
+</span><span><span class="hljs-keyword">namespace</span></span><span> </span><span><span class="hljs-title">Escuela.Web.Models</span></span><span>
+{
+    </span><span><span class="hljs-keyword">public</span></span><span> </span><span><span class="hljs-keyword">class</span></span><span> </span><span><span class="hljs-title">Estudiante</span></span><span>
+    {
+        [</span><span><span class="hljs-meta">Key</span></span><span>]
+        </span><span><span class="hljs-keyword">public</span></span><span> </span><span><span class="hljs-built_in">int</span></span><span> IdEstudiante { </span><span><span class="hljs-keyword">get</span></span><span>; </span><span><span class="hljs-keyword">set</span></span><span>; }
+
+        [</span><span><span class="hljs-meta">Required, StringLength(100)</span></span><span>]
+        </span><span><span class="hljs-keyword">public</span></span><span> </span><span><span class="hljs-built_in">string</span></span><span> Nombre { </span><span><span class="hljs-keyword">get</span></span><span>; </span><span><span class="hljs-keyword">set</span></span><span>; }
+
+        [</span><span><span class="hljs-meta">StringLength(200), EmailAddress</span></span><span>]
+        </span><span><span class="hljs-keyword">public</span></span><span> </span><span><span class="hljs-built_in">string</span></span><span> Email { </span><span><span class="hljs-keyword">get</span></span><span>; </span><span><span class="hljs-keyword">set</span></span><span>; }
+
+        [</span><span><span class="hljs-meta">Required(ErrorMessage = <span class="hljs-string">"La edad es obligatoria"</span></span></span><span>)]
+        [</span><span><span class="hljs-meta">Range(18, 40, ErrorMessage = <span class="hljs-string">"La edad debe estar entre 18 y 40"</span></span></span><span>)]
+        </span><span><span class="hljs-keyword">public</span></span><span> </span><span><span class="hljs-built_in">int</span></span><span> Edad { </span><span><span class="hljs-keyword">get</span></span><span>; </span><span><span class="hljs-keyword">set</span></span><span>; }
+
+        </span><span><span class="hljs-keyword">public</span></span><span> DateTime Creado { </span><span><span class="hljs-keyword">get</span></span><span>; </span><span><span class="hljs-keyword">set</span></span><span>; }
+    }
+}
+</span></span></code></div></div></pre>
+<h2 data-start="2078" data-end="2109">3.2 <code data-start="2085" data-end="2109">Data/EscuelaContext.cs</code></h2>
+<pre class="overflow-visible!" data-start="2110" data-end="3044"><div class="contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary"><div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-csharp"><span><span><span class="hljs-keyword">using</span></span><span> System.Data.Entity;
+</span><span><span class="hljs-keyword">using</span></span><span> System.Data.Entity.ModelConfiguration.Conventions;
+</span><span><span class="hljs-keyword">using</span></span><span> Escuela.Web.Models;
+
+</span><span><span class="hljs-keyword">namespace</span></span><span> </span><span><span class="hljs-title">Escuela.Web.Data</span></span><span>
+{
+    </span><span><span class="hljs-keyword">public</span></span><span> </span><span><span class="hljs-keyword">class</span></span><span> </span><span><span class="hljs-title">EscuelaContext</span></span><span> : </span><span><span class="hljs-title">DbContext</span></span><span>
+    {
+        </span><span><span class="hljs-comment">// Debe existir en Web.config: name=EscuelaConnection</span></span><span>
+        </span><span><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span> </span><span><span class="hljs-title">EscuelaContext</span></span><span>() : </span><span><span class="hljs-title">base</span></span><span>(</span><span><span class="hljs-params"><span class="hljs-string">"name=EscuelaConnection"</span></span></span><span>) { }
+
+        </span><span><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span> </span><span><span class="hljs-title">DbSet</span></span><span>&lt;</span><span><span class="hljs-title">Estudiante</span></span><span>&gt; Estudiantes { </span><span><span class="hljs-keyword">get</span></span><span>; </span><span><span class="hljs-keyword">set</span></span><span>; }
+
+        </span><span><span class="hljs-function"><span class="hljs-keyword">protected</span></span></span><span> </span><span><span class="hljs-keyword">override</span></span><span> </span><span><span class="hljs-keyword">void</span></span><span> </span><span><span class="hljs-title">OnModelCreating</span></span><span>(</span><span><span class="hljs-params">DbModelBuilder modelBuilder</span></span><span>)
+        {
+            modelBuilder.Conventions.Remove&lt;PluralizingTableNameConvention&gt;();
+
+            </span><span><span class="hljs-comment">// Mapea a la tabla existente en el esquema 'escolar'</span></span><span>
+            modelBuilder.Entity&lt;Estudiante&gt;()
+                        .ToTable(</span><span><span class="hljs-string">"estudiantes"</span></span><span>, schemaName: </span><span><span class="hljs-string">"escolar"</span></span><span>);
+
+            </span><span><span class="hljs-comment">// No permitir que EF altere el esquema existente</span></span><span>
+            Database.SetInitializer&lt;EscuelaContext&gt;(</span><span><span class="hljs-literal">null</span></span><span>);
+
+            </span><span><span class="hljs-keyword">base</span></span><span>.OnModelCreating(modelBuilder);
+        }
+    }
+}
+</span></span></code></div></div></pre>
+<h2 data-start="3046" data-end="3084">3.3 <code data-start="3053" data-end="3084">Services/EstudianteService.cs</code></h2>
+<pre class="overflow-visible!" data-start="3085" data-end="7047"><div class="contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary"><div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-csharp"><span><span><span class="hljs-keyword">using</span></span><span> System;
+</span><span><span class="hljs-keyword">using</span></span><span> System.Collections.Generic;
+</span><span><span class="hljs-keyword">using</span></span><span> System.Linq;
+</span><span><span class="hljs-keyword">using</span></span><span> Escuela.Web.Data;
+</span><span><span class="hljs-keyword">using</span></span><span> Escuela.Web.Models;
+
+</span><span><span class="hljs-keyword">namespace</span></span><span> </span><span><span class="hljs-title">Escuela.Web.Services</span></span><span>
+{
+    </span><span><span class="hljs-comment"><span class="hljs-doctag">///</span></span></span><span> </span><span><span class="hljs-doctag">&lt;summary&gt;</span></span><span>
+    </span><span><span class="hljs-comment"><span class="hljs-doctag">///</span></span></span><span> Capa de negocio para Estudiante. Las páginas deben usar este servicio,
+    </span><span><span class="hljs-comment"><span class="hljs-doctag">///</span></span></span><span> no el DbContext directamente.
+    </span><span><span class="hljs-comment"><span class="hljs-doctag">///</span></span></span><span> </span><span><span class="hljs-doctag">&lt;/summary&gt;</span></span><span>
+    </span><span><span class="hljs-keyword">public</span></span><span> </span><span><span class="hljs-keyword">class</span></span><span> </span><span><span class="hljs-title">EstudianteService</span></span><span>
+    {
+        </span><span><span class="hljs-comment">// ---------- Consultas ----------</span></span><span>
+
+        </span><span><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span> IEnumerable&lt;Estudiante&gt; </span><span><span class="hljs-title">Listar</span></span><span>(</span><span><span class="hljs-params"><span class="hljs-built_in">string</span></span></span><span> filtro = </span><span><span class="hljs-literal">null</span></span><span>)
+        {
+            </span><span><span class="hljs-keyword">using</span></span><span> (</span><span><span class="hljs-keyword">var</span></span><span> ctx = </span><span><span class="hljs-keyword">new</span></span><span> EscuelaContext())
+            {
+                </span><span><span class="hljs-keyword">var</span></span><span> q = ctx.Estudiantes.AsQueryable();
+
+                </span><span><span class="hljs-keyword">if</span></span><span> (!</span><span><span class="hljs-built_in">string</span></span><span>.IsNullOrWhiteSpace(filtro))
+                {
+                    filtro = filtro.Trim();
+                    q = q.Where(e =&gt;
+                        e.Nombre.Contains(filtro) ||
+                        (e.Email != </span><span><span class="hljs-literal">null</span></span><span> &amp;&amp; e.Email.Contains(filtro)));
+                }
+
+                </span><span><span class="hljs-keyword">return</span></span><span> q.OrderBy(e =&gt; e.IdEstudiante).ToList();
+            }
+        }
+
+        </span><span><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span> Estudiante </span><span><span class="hljs-title">Obtener</span></span><span>(</span><span><span class="hljs-params"><span class="hljs-built_in">int</span></span></span><span> id)
+        {
+            </span><span><span class="hljs-keyword">using</span></span><span> (</span><span><span class="hljs-keyword">var</span></span><span> ctx = </span><span><span class="hljs-keyword">new</span></span><span> EscuelaContext())
+            {
+                </span><span><span class="hljs-keyword">return</span></span><span> ctx.Estudiantes.Find(id);
+            }
+        }
+
+        </span><span><span class="hljs-comment">// ---------- Comandos (CRUD) ----------</span></span><span>
+
+        </span><span><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span> </span><span><span class="hljs-keyword">void</span></span><span> </span><span><span class="hljs-title">Crear</span></span><span>(</span><span><span class="hljs-params">Estudiante e</span></span><span>)
+        {
+            </span><span><span class="hljs-keyword">if</span></span><span> (e == </span><span><span class="hljs-literal">null</span></span><span>) </span><span><span class="hljs-keyword">throw</span></span><span> </span><span><span class="hljs-keyword">new</span></span><span> ArgumentNullException(</span><span><span class="hljs-keyword">nameof</span></span><span>(e));
+            NormalizarYValidar(e);
+
+            </span><span><span class="hljs-keyword">using</span></span><span> (</span><span><span class="hljs-keyword">var</span></span><span> ctx = </span><span><span class="hljs-keyword">new</span></span><span> EscuelaContext())
+            {
+                ValidarUnicidadEmail(ctx, e.Email);
+                ctx.Estudiantes.Add(e);
+                ctx.SaveChanges(); </span><span><span class="hljs-comment">// 'Creado' lo asigna la BD por DEFAULT SYSUTCDATETIME()</span></span><span>
+            }
+        }
+
+        </span><span><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span> </span><span><span class="hljs-keyword">void</span></span><span> </span><span><span class="hljs-title">Actualizar</span></span><span>(</span><span><span class="hljs-params">Estudiante cambios</span></span><span>)
+        {
+            </span><span><span class="hljs-keyword">if</span></span><span> (cambios == </span><span><span class="hljs-literal">null</span></span><span>) </span><span><span class="hljs-keyword">throw</span></span><span> </span><span><span class="hljs-keyword">new</span></span><span> ArgumentNullException(</span><span><span class="hljs-keyword">nameof</span></span><span>(cambios));
+            NormalizarYValidar(cambios);
+
+            </span><span><span class="hljs-keyword">using</span></span><span> (</span><span><span class="hljs-keyword">var</span></span><span> ctx = </span><span><span class="hljs-keyword">new</span></span><span> EscuelaContext())
+            {
+                </span><span><span class="hljs-keyword">var</span></span><span> existente = ctx.Estudiantes.Find(cambios.IdEstudiante);
+                </span><span><span class="hljs-keyword">if</span></span><span> (existente == </span><span><span class="hljs-literal">null</span></span><span>)
+                    </span><span><span class="hljs-keyword">throw</span></span><span> </span><span><span class="hljs-keyword">new</span></span><span> KeyNotFoundException(</span><span><span class="hljs-string">"El estudiante no existe."</span></span><span>);
+
+                </span><span><span class="hljs-comment">// Si cambia email, valida unicidad</span></span><span>
+                </span><span><span class="hljs-keyword">if</span></span><span> (!</span><span><span class="hljs-built_in">string</span></span><span>.Equals(existente.Email ?? </span><span><span class="hljs-string">""</span></span><span>, cambios.Email ?? </span><span><span class="hljs-string">""</span></span><span>, StringComparison.Ordinal))
+                {
+                    ValidarUnicidadEmail(ctx, cambios.Email, excluirId: cambios.IdEstudiante);
+                }
+
+                existente.Nombre = cambios.Nombre;
+                existente.Email  = cambios.Email;   </span><span><span class="hljs-comment">// puede ser null</span></span><span>
+                existente.Edad   = cambios.Edad;
+
+                ctx.SaveChanges();
+            }
+        }
+
+        </span><span><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span> </span><span><span class="hljs-keyword">void</span></span><span> </span><span><span class="hljs-title">Eliminar</span></span><span>(</span><span><span class="hljs-params"><span class="hljs-built_in">int</span></span></span><span> id)
+        {
+            </span><span><span class="hljs-keyword">using</span></span><span> (</span><span><span class="hljs-keyword">var</span></span><span> ctx = </span><span><span class="hljs-keyword">new</span></span><span> EscuelaContext())
+            {
+                </span><span><span class="hljs-keyword">var</span></span><span> e = ctx.Estudiantes.Find(id);
+                </span><span><span class="hljs-keyword">if</span></span><span> (e == </span><span><span class="hljs-literal">null</span></span><span>) </span><span><span class="hljs-keyword">return</span></span><span>; </span><span><span class="hljs-comment">// idempotente</span></span><span>
+
+                ctx.Estudiantes.Remove(e);
+                ctx.SaveChanges();
+            }
+        }
+
+        </span><span><span class="hljs-comment">// ---------- Reglas de negocio ----------</span></span><span>
+
+        </span><span><span class="hljs-function"><span class="hljs-keyword">private</span></span></span><span> </span><span><span class="hljs-keyword">static</span></span><span> </span><span><span class="hljs-keyword">void</span></span><span> </span><span><span class="hljs-title">NormalizarYValidar</span></span><span>(</span><span><span class="hljs-params">Estudiante e</span></span><span>)
+        {
+            e.Nombre = (e.Nombre ?? </span><span><span class="hljs-string">""</span></span><span>).Trim();
+            </span><span><span class="hljs-keyword">if</span></span><span> (</span><span><span class="hljs-built_in">string</span></span><span>.IsNullOrWhiteSpace(e.Nombre))
+                </span><span><span class="hljs-keyword">throw</span></span><span> </span><span><span class="hljs-keyword">new</span></span><span> InvalidOperationException(</span><span><span class="hljs-string">"El nombre es obligatorio."</span></span><span>);
+
+            e.Email = </span><span><span class="hljs-built_in">string</span></span><span>.IsNullOrWhiteSpace(e.Email) ? </span><span><span class="hljs-literal">null</span></span><span> : e.Email.Trim();
+
+            </span><span><span class="hljs-keyword">if</span></span><span> (e.Edad &lt; </span><span><span class="hljs-number">18</span></span><span> || e.Edad &gt; </span><span><span class="hljs-number">40</span></span><span>)
+                </span><span><span class="hljs-keyword">throw</span></span><span> </span><span><span class="hljs-keyword">new</span></span><span> InvalidOperationException(</span><span><span class="hljs-string">"La edad debe estar entre 18 y 40."</span></span><span>);
+        }
+
+        </span><span><span class="hljs-function"><span class="hljs-keyword">private</span></span></span><span> </span><span><span class="hljs-keyword">static</span></span><span> </span><span><span class="hljs-keyword">void</span></span><span> </span><span><span class="hljs-title">ValidarUnicidadEmail</span></span><span>(</span><span><span class="hljs-params">EscuelaContext ctx, <span class="hljs-built_in">string</span></span></span><span> email, </span><span><span class="hljs-built_in">int</span></span><span>? excluirId = </span><span><span class="hljs-literal">null</span></span><span>)
+        {
+            </span><span><span class="hljs-keyword">if</span></span><span> (</span><span><span class="hljs-built_in">string</span></span><span>.IsNullOrEmpty(email)) </span><span><span class="hljs-keyword">return</span></span><span>;
+
+            </span><span><span class="hljs-keyword">var</span></span><span> existe = ctx.Estudiantes.Any(x =&gt; x.Email == email &amp;&amp;
+                                                 (!excluirId.HasValue || x.IdEstudiante != excluirId.Value));
+            </span><span><span class="hljs-keyword">if</span></span><span> (existe)
+                </span><span><span class="hljs-keyword">throw</span></span><span> </span><span><span class="hljs-keyword">new</span></span><span> InvalidOperationException(</span><span><span class="hljs-string">"El email ya está registrado."</span></span><span>);
+        }
+    }
+}
+</span></span></code></div></div></pre>
+<hr data-start="7049" data-end="7052">
+<h1 data-start="7054" data-end="7105">4) <code data-start="7059" data-end="7071">Web.config</code>: cadena de conexión y provider EF</h1>
+<p data-start="7106" data-end="7168">Abre <code data-start="7111" data-end="7123">Web.config</code> y agrega/ajusta dentro de <code data-start="7150" data-end="7167">&lt;configuration&gt;</code>:</p>
+<pre class="overflow-visible!" data-start="7170" data-end="7735"><div class="contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary"><div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-xml"><span><span><span class="hljs-tag">&lt;<span class="hljs-name">connectionStrings</span></span></span><span>&gt;
+  </span><span><span class="hljs-tag">&lt;<span class="hljs-name">add</span></span></span><span> </span><span><span class="hljs-attr">name</span></span><span>=</span><span><span class="hljs-string">"EscuelaConnection"</span></span><span>
+       </span><span><span class="hljs-attr">connectionString</span></span><span>=<span class="hljs-string">"Data Source=localhost\SQLEXPRESS;
+                         Initial Catalog=Escuela;
+                         Integrated Security=True;
+                         MultipleActiveResultSets=True"</span>
+       </span><span><span class="hljs-attr">providerName</span></span><span>=</span><span><span class="hljs-string">"System.Data.SqlClient"</span></span><span> /&gt;
+</span><span><span class="hljs-tag">&lt;/<span class="hljs-name">connectionStrings</span></span></span><span>&gt;
+
+</span><span><span class="hljs-tag">&lt;<span class="hljs-name">entityFramework</span></span></span><span>&gt;
+  </span><span><span class="hljs-tag">&lt;<span class="hljs-name">providers</span></span></span><span>&gt;
+    </span><span><span class="hljs-tag">&lt;<span class="hljs-name">provider</span></span></span><span> </span><span><span class="hljs-attr">invariantName</span></span><span>=</span><span><span class="hljs-string">"System.Data.SqlClient"</span></span><span>
+              </span><span><span class="hljs-attr">type</span></span><span>=</span><span><span class="hljs-string">"System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer"</span></span><span> /&gt;
+  </span><span><span class="hljs-tag">&lt;/<span class="hljs-name">providers</span></span></span><span>&gt;
+</span><span><span class="hljs-tag">&lt;/<span class="hljs-name">entityFramework</span></span></span><span>&gt;
+</span></span></code></div></div></pre>
+<blockquote data-start="7737" data-end="7900">
+<p data-start="7739" data-end="7759">Si usarás login SQL:</p>
+<pre class="overflow-visible!" data-start="7762" data-end="7900"><div class="contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary"><div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre!"><span><span>Data Source</span><span><span class="hljs-operator">=</span></span><span>localhost\SQLEXPRESS;</span><span><span class="hljs-keyword">Initial</span></span><span> Catalog</span><span><span class="hljs-operator">=</span></span><span>Escuela;</span><span><span class="hljs-keyword">User</span></span><span> ID</span><span><span class="hljs-operator">=</span></span><span>appUser;Password</span><span><span class="hljs-operator">=</span></span><span><div class="pasteContent" style="display:inline;"><p>Clave_123!<span style="color: inherit; font-size: inherit; background-color: inherit;">;MultipleActiveResultSets</span><span style="color: inherit; font-size: inherit; background-color: inherit;"><span class="hljs-operator">=</span></span><span style="color: inherit; font-size: inherit; background-color: inherit;"><span class="hljs-literal">True</span></span></p></div></span></span></code></div></div></pre>
+</blockquote>
+<hr data-start="7902" data-end="7905">
+<h1 data-start="7907" data-end="7965">5) UI — Páginas Web Forms (usando <strong data-start="7943" data-end="7964">EstudianteService</strong>)</h1>
+<h2 data-start="7967" data-end="7999">5.1 Listado — <code data-start="7984" data-end="7999">Students.aspx</code></h2>
+<p data-start="8000" data-end="8060">Crea la página (<strong data-start="8016" data-end="8051">Add → Web Form… → Students.aspx</strong>) y pega:</p>
+<pre class="overflow-visible!" data-start="8062" data-end="10062"><div class="contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary"><div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-aspx"><span>&lt;%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Students.aspx.cs" Inherits="Escuela.Web.Students" %&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head runat="server"&gt;
+    &lt;title&gt;Estudiantes&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;form id="form1" runat="server"&gt;
+        &lt;h2&gt;Estudiantes&lt;/h2&gt;
+
+        &lt;div&gt;
+            &lt;asp:TextBox ID="txtFiltro" runat="server" Width="260" Placeholder="Buscar por nombre o email..." /&gt;
+            &lt;asp:Button ID="btnBuscar" runat="server" Text="Buscar" OnClick="btnBuscar_Click" /&gt;
+            &lt;asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" OnClick="btnLimpiar_Click" /&gt;
+            &nbsp;&nbsp;
+            &lt;asp:HyperLink ID="lnkNuevo" runat="server" NavigateUrl="~/StudentForm.aspx"&gt;+ Nuevo Estudiante&lt;/asp:HyperLink&gt;
+        &lt;/div&gt;
+
+        &lt;br /&gt;
+
+        &lt;asp:GridView ID="gvEstudiantes" runat="server"
+            AutoGenerateColumns="False"
+            DataKeyNames="IdEstudiante"
+            AllowPaging="true" PageSize="10"
+            OnPageIndexChanging="gvEstudiantes_PageIndexChanging"
+            OnRowEditing="gvEstudiantes_RowEditing"
+            OnRowDeleting="gvEstudiantes_RowDeleting"
+            OnRowDataBound="gvEstudiantes_RowDataBound"
+            EmptyDataText="No se encontraron estudiantes."&gt;
+            &lt;Columns&gt;
+                &lt;asp:BoundField DataField="IdEstudiante" HeaderText="ID" ReadOnly="true" /&gt;
+                &lt;asp:BoundField DataField="Nombre" HeaderText="Nombre" /&gt;
+                &lt;asp:BoundField DataField="Email" HeaderText="Email" /&gt;
+                &lt;asp:BoundField DataField="Edad" HeaderText="Edad" /&gt;
+                &lt;asp:BoundField DataField="Creado" HeaderText="Creado" DataFormatString="{0:u}" ReadOnly="true" /&gt;
+                &lt;asp:CommandField ShowEditButton="True" EditText="Editar" /&gt;
+                &lt;asp:CommandField ShowDeleteButton="True" DeleteText="Eliminar" /&gt;
+            &lt;/Columns&gt;
+        &lt;/asp:GridView&gt;
+
+        &lt;asp:Label ID="lblMsg" runat="server" ForeColor="Red" /&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</span></code></div></div></pre>
+<h3 data-start="10064" data-end="10086"><code data-start="10068" data-end="10086">Students.aspx.cs</code></h3>
+<pre class="overflow-visible!" data-start="10087" data-end="12337"><div class="contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary"><div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-csharp"><span><span><div class="pasteContent" style="display:inline;"><p>using System;</p><p>using System.Web.UI.WebControls;</p><p>using Escuela.Web.Services;</p><p><br></p><p>namespace Escuela.Web</p><p>{</p><p>&nbsp;&nbsp;&nbsp;&nbsp;public partial class Students : System.Web.UI.Page</p><p>&nbsp;&nbsp;&nbsp;&nbsp;{</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;private readonly EstudianteService _service = new EstudianteService();</p><p><br></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;protected void Page_Load(object sender, EventArgs e)</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (!IsPostBack)</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BindGrid();</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p><p><br></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;private void BindGrid(string filtro = null)</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gvEstudiantes.DataSource = _service.Listar(filtro);</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gvEstudiantes.DataBind();</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p><p><br></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;protected void btnBuscar_Click(object sender, EventArgs e)</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BindGrid(txtFiltro.Text);</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p><p><br></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;protected void btnLimpiar_Click(object sender, EventArgs e)</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txtFiltro.Text = string.Empty;</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BindGrid();</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p><p><br></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;protected void gvEstudiantes_PageIndexChanging(object sender, GridViewPageEventArgs e)</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Aseguramos que el índice de página esté dentro del rango</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (e.NewPageIndex &gt;= 0 &amp;&amp; e.NewPageIndex &lt; gvEstudiantes.PageCount)</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gvEstudiantes.PageIndex = e.NewPageIndex;</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BindGrid(txtFiltro.Text);</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p><p><br></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;protected void gvEstudiantes_RowEditing(object sender, GridViewEditEventArgs e)</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Validar índice antes de usarlo</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (e.NewEditIndex &gt;= 0 &amp;&amp; e.NewEditIndex &lt; gvEstudiantes.DataKeys.Count)</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int id = (int)gvEstudiantes.DataKeys[e.NewEditIndex].Value;</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Response.Redirect($"~/StudentForm.aspx?id={id}");</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p><p><br></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;protected void gvEstudiantes_RowDeleting(object sender, GridViewDeleteEventArgs e)</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Validar índice antes de usarlo</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (e.RowIndex &gt;= 0 &amp;&amp; e.RowIndex &lt; gvEstudiantes.DataKeys.Count)</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int id = (int)gvEstudiantes.DataKeys[e.RowIndex].Value;</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_service.Eliminar(id);</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BindGrid(txtFiltro.Text);</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lblMsg.Text = string.Empty;</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;catch (Exception ex)</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lblMsg.Text = "No se pudo eliminar el registro: " + ex.Message;</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p><p><br></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;protected void gvEstudiantes_RowDataBound(object sender, GridViewRowEventArgs e)</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (e.Row.RowType == DataControlRowType.DataRow)</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Buscar de forma segura el LinkButton de Delete en TODA la fila</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach (Control control in e.Row.Cells[e.Row.Cells.Count - 1].Controls)</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (control is LinkButton lb &amp;&amp; lb.CommandName == "Delete")</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lb.OnClientClick = "return confirm('¿Eliminar este estudiante?');";</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p><p>&nbsp;&nbsp;&nbsp;&nbsp;}</p><p>}</p><p><br></p></div>
+</span></span></code></div></div></pre>
+<h2 data-start="12339" data-end="12377">5.2 Formulario — <code data-start="12359" data-end="12377">StudentForm.aspx</code></h2>
+<p data-start="12378" data-end="12441">Crea la página (<strong data-start="12394" data-end="12432">Add → Web Form… → StudentForm.aspx</strong>) y pega:</p>
+<pre class="overflow-visible!" data-start="12443" data-end="14393"><div class="contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary"><div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-aspx"><span>&lt;%@ Page Language="C#" AutoEventWireup="true" CodeBehind="StudentForm.aspx.cs" Inherits="Escuela.Web.StudentForm" %&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head runat="server"&gt;
+    &lt;title&gt;Estudiante&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;form id="form1" runat="server"&gt;
+        &lt;asp:HyperLink ID="lnkVolver" runat="server" NavigateUrl="~/Students.aspx"&gt;« Volver&lt;/asp:HyperLink&gt;
+        &lt;h2&gt;&lt;asp:Literal ID="litTitulo" runat="server" /&gt;&lt;/h2&gt;
+
+        &lt;asp:ValidationSummary ID="valSummary" runat="server" /&gt;
+
+        &lt;div&gt;
+            &lt;label&gt;Nombre&lt;/label&gt;&lt;br /&gt;
+            &lt;asp:TextBox ID="txtNombre" runat="server" MaxLength="100" /&gt;
+            &lt;asp:RequiredFieldValidator runat="server" ControlToValidate="txtNombre"
+                ErrorMessage="El nombre es obligatorio" Display="Dynamic" /&gt;
+        &lt;/div&gt;
+
+        &lt;div style="margin-top:8px;"&gt;
+            &lt;label&gt;Email&lt;/label&gt;&lt;br /&gt;
+            &lt;asp:TextBox ID="txtEmail" runat="server" MaxLength="200" /&gt;
+            &lt;asp:RegularExpressionValidator runat="server" ControlToValidate="txtEmail"
+                ValidationExpression="</span><span style="color: inherit; font-size: inherit; background-color: inherit;">^[^@\s]+@[^@\s]+\.[^@\s]+$</span><span style="color: inherit; font-size: inherit; background-color: inherit;">"</span><span><br>                ErrorMessage="Email inválido" Display="Dynamic" /&gt;
+        &lt;/div&gt;
+
+        &lt;div style="margin-top:8px;"&gt;
+            &lt;label&gt;Edad&lt;/label&gt;&lt;br /&gt;
+            &lt;asp:TextBox ID="txtEdad" runat="server" MaxLength="2" /&gt;
+            &lt;asp:RequiredFieldValidator runat="server" ControlToValidate="txtEdad"
+                ErrorMessage="La edad es obligatoria" Display="Dynamic" /&gt;
+            &lt;asp:RangeValidator runat="server" ControlToValidate="txtEdad"
+                Type="Integer" MinimumValue="18" MaximumValue="40"
+                ErrorMessage="La edad debe estar entre 18 y 40" Display="Dynamic" /&gt;
+        &lt;/div&gt;
+
+        &lt;br /&gt;
+        &lt;asp:Button ID="btnGuardar" runat="server" Text="Guardar" OnClick="btnGuardar_Click" /&gt;
+        &lt;asp:Label ID="lblMsg" runat="server" ForeColor="Red" /&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</span></code></div></div></pre>
+<h3 data-start="14395" data-end="14420"><code data-start="14399" data-end="14420">StudentForm.aspx.cs</code></h3>
+<pre class="overflow-visible!" data-start="14421" data-end="17054"><div class="contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary"><div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-csharp"><span><span><span class="hljs-keyword">using</span></span><span> System;
+</span><span><span class="hljs-keyword">using</span></span><span> Escuela.Web.Models;
+</span><span><span class="hljs-keyword">using</span></span><span> Escuela.Web.Services;
+
+</span><span><span class="hljs-keyword">namespace</span></span><span> </span><span><span class="hljs-title">Escuela.Web</span></span><span>
+{
+    </span><span><span class="hljs-keyword">public</span></span><span> </span><span><span class="hljs-keyword">partial</span></span><span> </span><span><span class="hljs-keyword">class</span></span><span> </span><span><span class="hljs-title">StudentForm</span></span><span> : </span><span><span class="hljs-title">System.Web.UI.Page</span></span><span>
+    {
+        </span><span><span class="hljs-keyword">private</span></span><span> </span><span><span class="hljs-keyword">readonly</span></span><span> EstudianteService _service = </span><span><span class="hljs-keyword">new</span></span><span> EstudianteService();
+        </span><span><span class="hljs-keyword">private</span></span><span> </span><span><span class="hljs-built_in">int</span></span><span>? Id =&gt; </span><span><span class="hljs-built_in">int</span></span><span>.TryParse(Request.QueryString[</span><span><span class="hljs-string">"id"</span></span><span>], </span><span><span class="hljs-keyword">out</span></span><span> </span><span><span class="hljs-keyword">var</span></span><span> x) ? x : (</span><span><span class="hljs-built_in">int</span></span><span>?)</span><span><span class="hljs-literal">null</span></span><span>;
+
+        </span><span><span class="hljs-function"><span class="hljs-keyword">protected</span></span></span><span> </span><span><span class="hljs-keyword">void</span></span><span> </span><span><span class="hljs-title">Page_Load</span></span><span>(</span><span><span class="hljs-params"><span class="hljs-built_in">object</span></span></span><span> sender, EventArgs e)
+        {
+            </span><span><span class="hljs-keyword">if</span></span><span> (!IsPostBack)
+            {
+                litTitulo.Text = Id.HasValue ? </span><span><span class="hljs-string">"Editar Estudiante"</span></span><span> : </span><span><span class="hljs-string">"Nuevo Estudiante"</span></span><span>;
+                </span><span><span class="hljs-keyword">if</span></span><span> (Id.HasValue) Cargar();
+            }
+        }
+
+        </span><span><span class="hljs-function"><span class="hljs-keyword">private</span></span></span><span> </span><span><span class="hljs-keyword">void</span></span><span> </span><span><span class="hljs-title">Cargar</span></span><span>()
+        {
+            </span><span><span class="hljs-keyword">var</span></span><span> e = _service.Obtener(Id.Value);
+            </span><span><span class="hljs-keyword">if</span></span><span> (e == </span><span><span class="hljs-literal">null</span></span><span>)
+            {
+                Response.Redirect(</span><span><span class="hljs-string">"~/Students.aspx"</span></span><span>);
+                </span><span><span class="hljs-keyword">return</span></span><span>;
+            }
+
+            txtNombre.Text = e.Nombre;
+            txtEmail.Text  = e.Email;
+            txtEdad.Text   = e.Edad.ToString();
+        }
+
+        </span><span><span class="hljs-function"><span class="hljs-keyword">protected</span></span></span><span> </span><span><span class="hljs-keyword">void</span></span><span> </span><span><span class="hljs-title">btnGuardar_Click</span></span><span>(</span><span><span class="hljs-params"><span class="hljs-built_in">object</span></span></span><span> sender, EventArgs e)
+        {
+            </span><span><span class="hljs-keyword">if</span></span><span> (!Page.IsValid) </span><span><span class="hljs-keyword">return</span></span><span>;
+
+            </span><span><span class="hljs-keyword">try</span></span><span>
+            {
+                </span><span><span class="hljs-keyword">if</span></span><span> (!</span><span><span class="hljs-built_in">int</span></span><span>.TryParse(txtEdad.Text, </span><span><span class="hljs-keyword">out</span></span><span> </span><span><span class="hljs-keyword">var</span></span><span> edad))
+                {
+                    lblMsg.Text = </span><span><span class="hljs-string">"La edad debe ser un número válido."</span></span><span>;
+                    </span><span><span class="hljs-keyword">return</span></span><span>;
+                }
+
+                </span><span><span class="hljs-keyword">if</span></span><span> (Id.HasValue)
+                {
+                    </span><span><span class="hljs-keyword">var</span></span><span> cambios = </span><span><span class="hljs-keyword">new</span></span><span> Estudiante
+                    {
+                        IdEstudiante = Id.Value,
+                        Nombre = txtNombre.Text,
+                        Email  = </span><span><span class="hljs-built_in">string</span></span><span>.IsNullOrWhiteSpace(txtEmail.Text) ? </span><span><span class="hljs-literal">null</span></span><span> : txtEmail.Text,
+                        Edad   = edad
+                    };
+                    _service.Actualizar(cambios);
+                }
+                </span><span><span class="hljs-keyword">else</span></span><span>
+                {
+                    </span><span><span class="hljs-keyword">var</span></span><span> nuevo = </span><span><span class="hljs-keyword">new</span></span><span> Estudiante
+                    {
+                        Nombre = txtNombre.Text,
+                        Email  = </span><span><span class="hljs-built_in">string</span></span><span>.IsNullOrWhiteSpace(txtEmail.Text) ? </span><span><span class="hljs-literal">null</span></span><span> : txtEmail.Text,
+                        Edad   = edad
+                        </span><span><span class="hljs-comment">// 'Creado' lo asigna la BD por DEFAULT</span></span><span>
+                    };
+                    _service.Crear(nuevo);
+                }
+
+                Response.Redirect(</span><span><span class="hljs-string">"~/Students.aspx"</span></span><span>);
+            }
+            </span><span><span class="hljs-keyword">catch</span></span><span> (InvalidOperationException ex)
+            {
+                </span><span><span class="hljs-comment">// Reglas de negocio (nombre vacío, edad fuera de rango, email duplicado)</span></span><span>
+                lblMsg.Text = ex.Message;
+            }
+            </span><span><span class="hljs-keyword">catch</span></span><span> (Exception ex)
+            {
+                lblMsg.Text = </span><span><span class="hljs-string">"Error al guardar: "</span></span><span> + ex.Message;
+            }
+        }
+    }
+}
+</span></span></code></div></div></pre>
+<hr data-start="17056" data-end="17059">
+<h1 data-start="17061" data-end="17072">6) Probar</h1>
+<ol data-start="17073" data-end="17286">
+<li data-start="17073" data-end="17139">
+<p data-start="17076" data-end="17139">Clic derecho sobre <strong data-start="17095" data-end="17112">Students.aspx</strong> → <strong data-start="17115" data-end="17136">Set as Start Page</strong>.</p>
+</li>
+<li data-start="17140" data-end="17166">
+<p data-start="17143" data-end="17166"><strong data-start="17143" data-end="17149">F5</strong> (IIS Express).</p>
+</li>
+<li data-start="17167" data-end="17265">
+<p data-start="17170" data-end="17265"><strong data-start="17170" data-end="17192">+ Nuevo Estudiante</strong>, guarda, vuelve al listado; <strong data-start="17221" data-end="17231">Editar</strong> y <strong data-start="17234" data-end="17246">Eliminar</strong> deben funcionar.</p>
+</li>
+<li data-start="17266" data-end="17286">
+<p data-start="17269" data-end="17286">Verifica en SSMS:</p>
+</li>
+</ol>
+<pre class="overflow-visible!" data-start="17287" data-end="17394"><div class="contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary"><div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-sql"><span><span><span class="hljs-keyword">SELECT</span></span><span> IdEstudiante, Nombre, Email, Edad, Creado
+</span><span><span class="hljs-keyword">FROM</span></span><span> escolar.estudiantes
+</span><span><span class="hljs-keyword">ORDER</span></span><span> </span><span><span class="hljs-keyword">BY</span></span><span> IdEstudiante;
+</span></span></code></div></div></pre>
+<hr data-start="17396" data-end="17399">
+<h1 data-start="17401" data-end="17433">7) Checklist / Errores comunes</h1>
+<ul data-start="17434" data-end="17848">
+<li data-start="17434" data-end="17537">
+<p data-start="17436" data-end="17537"><strong data-start="17436" data-end="17472"><code data-start="17438" data-end="17454">EscuelaContext</code> no se encuentra</strong> → faltan <code data-start="17482" data-end="17507">using Escuela.Web.Data;</code> o el namespace no coincide.</p>
+</li>
+<li data-start="17538" data-end="17677">
+<p data-start="17540" data-end="17677"><strong data-start="17540" data-end="17585">“Invalid object name escolar.estudiantes”</strong> → la tabla no existe o está en otro esquema; confirma <code data-start="17640" data-end="17674">ToTable("estudiantes","escolar")</code>.</p>
+</li>
+<li data-start="17678" data-end="17751">
+<p data-start="17680" data-end="17751"><strong data-start="17680" data-end="17696">Login failed</strong> → revisa cadena de conexión (servidor/credenciales).</p>
+</li>
+<li data-start="17752" data-end="17848">
+<p data-start="17754" data-end="17848"><strong data-start="17754" data-end="17773">Email duplicado</strong> → el <code data-start="17779" data-end="17788">Service</code> lanza <code data-start="17795" data-end="17822">InvalidOperationException</code> y se muestra en <code data-start="17839" data-end="17847">lblMsg</code>.</p>
+</li>
+</ul>
+<hr data-start="17850" data-end="17853">
+<p data-start="17855" data-end="17991" data-is-last-node="" data-is-only-node="">¿Quieres que empaquete todo en una <strong data-start="17890" data-end="17918">lista de archivos mínima</strong> (con nombres y rutas) para que lo copies/pegues tal cual en tu proyecto?</p></div></div></div></div></div></div></article></body>
