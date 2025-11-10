@@ -1,0 +1,103 @@
+https://singular-beijinho-788924.netlify.app/
+
+Nombre de la instancia: SQLEXPRESS
+Cadena de conexión: Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;
+
+
+USE escuela;
+GO
+
+-- Crear tabla
+CREATE TABLE dbo.estudiantes (
+    IdEstudiante INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre NVARCHAR(100) NOT NULL,
+    Email NVARCHAR(200) UNIQUE,
+	Edad INT,
+    Creado DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME()
+);
+GO
+
+-- Insertar datos
+INSERT INTO dbo.estudiantes (Nombre, Email)
+VALUES ('Julia Garza', 'jgarza@example.com'),
+       ('Luis Marin', 'lmarin@example.com');
+GO
+
+-- Consultar
+SELECT * FROM dbo.estudiantes;
+GO
+
+
+-- Crear login a nivel servidor
+CREATE LOGIN appUser WITH PASSWORD = 'Clave_123!', CHECK_POLICY = ON;
+GO
+
+-- Crear usuario dentro de la base y mapearlo al login
+USE escuela;
+GO
+CREATE USER appUser FOR LOGIN appUser;
+GO
+
+-- Darle permisos (rol db_datareader + db_datawriter para CRUD básico)
+EXEC sp_addrolemember N'db_datareader', N'appUser';
+EXEC sp_addrolemember N'db_datawriter', N'appUser';
+GO
+
+-- (Opcional) Permitir crear objetos (cautela en producción)
+-- GRANT CREATE TABLE TO appUser;
+
+USE escuela;
+GO
+
+GRANT SELECT, INSERT, UPDATE, DELETE
+ON dbo.estudiantes
+TO appUser;
+GO
+
+
+USE escuela;
+GO
+
+-- Crea el esquema y deja como propietario a dbo (recomendado)
+CREATE SCHEMA escolar AUTHORIZATION dbo;
+GO
+
+
+USE Escuela;
+GO
+
+ALTER SCHEMA escolar TRANSFER dbo.estudiantes;
+GO
+
+
+SELECT SCHEMA_NAME(schema_id) AS schema_name, name AS table_name
+FROM sys.tables
+WHERE name = 'estudiantes';
+
+
+USE escuela;
+GO
+GRANT SELECT, INSERT, UPDATE, DELETE ON SCHEMA::escolar TO appUser;
+GO
+
+USE escuela;
+GO
+ALTER USER appuser WITH DEFAULT_SCHEMA = escolar
+GO
+
+
+
+<connectionStrings>
+  <add name="EscuelaConnection"
+       connectionString="Data Source=localhost\SQLEXPRESS;Initial Catalog=Escuela;User ID=appUser;Password=Clave_123!;MultipleActiveResultSets=True" />
+</connectionStrings>
+
+<entityFramework>
+  <providers>
+    <provider invariantName="System.Data.SqlClient"
+              type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" />
+  </providers>
+</entityFramework>
+
+
+C:\Users\Rocio\Downloads\6822AIPower.HtmlEditorFree_camjjjmxex5e4!App\
