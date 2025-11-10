@@ -99,5 +99,13 @@ GO
   </providers>
 </entityFramework>
 
+git config --global user.name "Rocio Angulo"
+git config --global user.email "rocio.angulo@gmail.com"
+
+
+git remote add origin https://github.com/rocioangulosf/Escuela.Web.git
+git branch -M main
+git push -u origin main
+
 
 C:\Users\Rocio\Downloads\6822AIPower.HtmlEditorFree_camjjjmxex5e4!App\
